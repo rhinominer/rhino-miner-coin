@@ -67,7 +67,7 @@ jobs:
         run: bash ${SCRIPTS}/04-package.sh ${{ matrix.platform.name }} ${{ steps.version.outputs.VERSION }}
 
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: rhino-miner-coin-${{ matrix.platform.name }}-${{ steps.version.outputs.VERSION }}
           path: ${{ github.workspace }}/release/*
@@ -79,7 +79,7 @@ jobs:
     
     steps:
       - name: Download All Artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           path: artifacts
 
