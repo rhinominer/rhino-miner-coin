@@ -16,10 +16,20 @@ echo "========================================"
 set -e
 set -x
 
+# Save current directory
+REPO_ROOT=$(pwd)
+
+# Fix line endings in depends directory
+find depends -type f \( -name '*.sh' -o -name '*.ac' -o -name '*.am' -o -name '*.m4' -o -name '*.in' -o -name '*.mk' -o -name 'Makefile' -o -name 'config.*' \) -exec sed -i 's/\r$//' {} + 2>/dev/null || true
+
+# Make config scripts executable
+chmod +x depends/config.guess depends/config.sub 2>/dev/null || true
+
 cd depends
 
-# Fix line endings
-find . -type f \( -name '*.sh' -o -name '*.ac' -o -name '*.am' -o -name '*.m4' -o -name '*.in' -o -name '*.mk' -o -name 'Makefile' -o -name 'config.*' \) -exec sed -i 's/\r$//' {} +
+# Verify we're in the right directory
+echo "Current directory: $(pwd)"
+ls -la Makefile || echo "WARNING: Makefile not found!"
 
 if [[ ${PLATFORM} == "windows" ]]; then
     make HOST=x86_64-w64-mingw32 DOWNLOAD_RETRIES=10 DOWNLOAD_CONNECT_TIMEOUT=60 -j$(nproc)
@@ -35,7 +45,7 @@ else
     exit 1
 fi
 
-cd ..
+cd "${REPO_ROOT}"
 
 echo "========================================"
 echo "Dependencies built successfully"

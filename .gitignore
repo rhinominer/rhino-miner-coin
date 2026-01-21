@@ -81,6 +81,8 @@ src/qt/bitcoin-qt.includes
 # Compilation and Qt preprocessor part
 *.qm
 Makefile
+!depends/Makefile
+!src/leveldb*/Makefile
 rhino-qt
 rhino-qt.app
 background.tiff*
