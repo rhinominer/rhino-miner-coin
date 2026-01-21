@@ -18,6 +18,11 @@ set -x
 # Fix line endings
 find . -type f \( -name '*.sh' -o -name '*.ac' -o -name '*.am' -o -name '*.m4' -o -name '*.in' -o -name '*.mk' -o -name 'Makefile' -o -name 'config.*' \) -exec sed -i 's/\r$//' {} +
 
+# Make all shell scripts executable
+find . -type f -name '*.sh' -exec chmod +x {} +
+chmod +x share/genbuild.sh 2>/dev/null || true
+chmod +x autogen.sh 2>/dev/null || true
+
 # Run autogen
 bash ./autogen.sh
 
