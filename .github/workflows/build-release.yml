@@ -1,0 +1,93 @@
+name: Build Rhino Miner Coin Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to build (e.g., v1.0.0)'
+        required: true
+        type: string
+  push:
+    tags:
+      - 'v*.*.*'
+
+env:
+  SCRIPTS: ${{ github.workspace }}/.github/scripts
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    
+    strategy:
+      matrix:
+        platform:
+          - { name: 'windows', arch: 'x86_64' }
+          - { name: 'linux', arch: 'x86_64' }
+          - { name: 'linux-gui', arch: 'x86_64' }
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set Version
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" == "push" ]; then
+            echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+          else
+            echo "VERSION=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Install Dependencies
+        run: |
+          sudo apt-get update
+          bash ${SCRIPTS}/00-install-deps.sh ${{ matrix.platform.name }}
+
+      - name: Cache Dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ${{ github.workspace }}/depends/built
+            ${{ github.workspace }}/depends/sources
+            ${{ github.workspace }}/depends/work
+          key: ${{ runner.os }}-${{ matrix.platform.name }}-${{ hashFiles('depends/**') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.platform.name }}-
+
+      - name: Build Dependencies
+        run: bash ${SCRIPTS}/01-build-depends.sh ${{ matrix.platform.name }} ${{ matrix.platform.arch }}
+
+      - name: Configure Build
+        run: bash ${SCRIPTS}/02-configure.sh ${{ matrix.platform.name }}
+
+      - name: Build Binaries
+        run: bash ${SCRIPTS}/03-build.sh
+
+      - name: Package Release
+        run: bash ${SCRIPTS}/04-package.sh ${{ matrix.platform.name }} ${{ steps.version.outputs.VERSION }}
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: rhino-miner-coin-${{ matrix.platform.name }}-${{ steps.version.outputs.VERSION }}
+          path: ${{ github.workspace }}/release/*
+
+  create-release:
+    needs: build
+    runs-on: ubuntu-20.04
+    if: startsWith(github.ref, 'refs/tags/')
+    
+    steps:
+      - name: Download All Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          path: artifacts
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: artifacts/**/*
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  build-linux-gui:
+    build:
+      context: ..
+      dockerfile: docker/build-linux-gui.Dockerfile
+    container_name: rhino-build-linux-gui
+    volumes:
+      - ../build-output:/out
+    command: bash -lc "mkdir -p /out/linux-gui && cp -a /opt/artifacts/bin/* /out/linux-gui/ && echo 'Build complete! Binaries in build-output/linux-gui/'"
