@@ -89,5 +89,52 @@ jobs:
           files: artifacts/**/*
           draft: false
           prerelease: false
+          body: |
+            # Rhino Miner Coin ${{ github.ref_name }}
+            
+            Official release of Rhino Miner Coin wallet and tools.
+            
+            ## 📦 Downloads
+            
+            Choose the version for your operating system:
+            
+            - **Windows**: `rhino-miner-coin-${{ github.ref_name }}-windows.zip` - GUI wallet + CLI tools
+            - **Linux GUI**: `rhino-miner-coin-${{ github.ref_name }}-linux-gui.tar.gz` - GUI wallet + CLI tools
+            - **Linux CLI**: `rhino-miner-coin-${{ github.ref_name }}-linux.tar.gz` - Daemon + CLI tools (no GUI)
+            
+            ## 🚀 Getting Started
+            
+            1. Download the appropriate file for your system
+            2. Extract the archive
+            3. Run `rhino-qt` (GUI) or `rhinod` (daemon)
+            
+            ## 🔗 Useful Links
+            
+            - 🌐 **Website**: https://rhinominer.rocks
+            - 🔍 **Block Explorer**: https://explorer.rhinominer.rocks
+            - ⛏️ **Mining Pool**: https://pool.rhinominer.rocks
+            - 💬 **Discord**: Join our community for support and discussions
+            - 📖 **Documentation**: See README.md in the release files
+            
+            ## ℹ️ What's Included
+            
+            Each release contains:
+            - `rhino-qt` / `rhino-qt.exe` - GUI wallet (Windows and Linux GUI only)
+            - `rhinod` / `rhinod.exe` - Daemon/node software
+            - `rhino-cli` / `rhino-cli.exe` - Command-line interface
+            - `rhino-tx` / `rhino-tx.exe` - Transaction utility
+            - `rhino-wallet` / `rhino-wallet.exe` - Wallet management tool
+            - `README.md` - Documentation
+            - `COPYING` - License information
+            
+            ## 💬 Need Help?
+            
+            - Join our Discord community for support
+            - Check the documentation at https://rhinominer.rocks
+            - Report issues on GitHub
+            
+            ---
+            
+            **CPU-focused cryptocurrency | No premine | Community-first**
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
