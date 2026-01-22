@@ -98,10 +98,10 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 1612051200; // 31 Jan 2021
 
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("0x00");
+        consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000000000040000");
         
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x00");
+        consensus.defaultAssumeValid = uint256S("0xa2db0de6729520a6ea19d1ee848e3abc8dc95b59fcd3022c1fc87c85ee7a6a66");
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -206,10 +206,10 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = 1493596800; // May 1st 2017
 
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("0x00");
+        consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000000000040000");
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x00");
+        consensus.defaultAssumeValid = uint256S("0xa2db0de6729520a6ea19d1ee848e3abc8dc95b59fcd3022c1fc87c85ee7a6a66");
 
         pchMessageStart[0] = 0x0b;
         pchMessageStart[1] = 0x11;
@@ -296,10 +296,10 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_SEGWIT].nTimeout = Consensus::BIP9Deployment::NO_TIMEOUT;
 
         // The best chain should have at least this much work.
-        consensus.nMinimumChainWork = uint256S("0x00");
+        consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000000000040000");
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x00");
+        consensus.defaultAssumeValid = uint256S("0xa2db0de6729520a6ea19d1ee848e3abc8dc95b59fcd3022c1fc87c85ee7a6a66");
 
         pchMessageStart[0] = 0xfa;
         pchMessageStart[1] = 0xbf;
