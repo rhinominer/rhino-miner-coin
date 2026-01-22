@@ -32,6 +32,7 @@ if [[ ${PLATFORM} == "windows" ]]; then
     
     cd release
     zip -r rhino-miner-coin-${VERSION}-windows.zip rhino-miner-coin-${VERSION}-windows
+    rm -rf rhino-miner-coin-${VERSION}-windows
     cd ..
 
 elif [[ ${PLATFORM} == "linux-gui" ]]; then
@@ -47,6 +48,7 @@ elif [[ ${PLATFORM} == "linux-gui" ]]; then
     
     cd release
     tar -czf rhino-miner-coin-${VERSION}-linux-gui.tar.gz rhino-miner-coin-${VERSION}-linux-gui
+    rm -rf rhino-miner-coin-${VERSION}-linux-gui
     cd ..
 
 elif [[ ${PLATFORM} == "linux" ]]; then
@@ -61,6 +63,7 @@ elif [[ ${PLATFORM} == "linux" ]]; then
     
     cd release
     tar -czf rhino-miner-coin-${VERSION}-linux.tar.gz rhino-miner-coin-${VERSION}-linux
+    rm -rf rhino-miner-coin-${VERSION}-linux
     cd ..
 
 else
